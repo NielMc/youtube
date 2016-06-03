@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Baking Website</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	
+	<style>
+		.container { width:50%; margin:10px auto;}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<fieldset>
+		<legend>Doughnut Selection</legend>
+		<form>
+		  
+		  <div class="form-group">
+		    <label for="selectBatter">Batter</label>
+		    <select id="selectBatter" ></select>
+		  </div>
+
+		  <button type="submit" class="btn btn-info">Submit</button>
+		</form>
+		</fieldset>
+		<fieldset>
+		<legend>Topping Selection</legend>
+		<form>
+		  
+		  <div class="form-group">
+		    <label for="selectTopping">Topping</label>
+		    <select id="selectTopping" ></select>
+		  </div>
+
+		  <button type="submit" class="btn btn-info">Submit</button>
+		</form>
+		</fieldset>
+		<p></p>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+
+			
+			var htmlOptions = "";
+
+			
+
+			$.ajax({
+				url: 'donuts.json',
+				dataType: 'json'
+			})
+			.done(function( dataJson ) {
+
+				$.each( dataJson, function( index, objectBatter ) {
+
+					htmlOptions += '<option value="' + objectBatter.batters.batter[0].type + '">' + objectBatter.batters.batter[0].id + '</option>';
+				})
+
+				$('#selectBatter').html( htmlOptions );
+				$.each( dataJson, function( index, objectTopping ) {
+
+					htmlOptions += '<option value="' + objectTopping.topping.type + '">' + objectTopping.topping.id + '</option>';
+				})
+
+				$('#selectTopping').html( htmlOptions );
+			})
+
+
+			
+
+			$('#selectColour').on('change', function(event) {
+				console.log ( $(this).val() );
+				$('p').html("The colour " + $(this).find("option:selected").text() + " has a hexadecimal value of "+ $(this).val())
+			});
+
+
+
+	</script>
+</body>
+</html>

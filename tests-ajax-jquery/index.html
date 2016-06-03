@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>testing jQuery AJAX request</title>
+</head>
+<body>
+
+	<div></div>
+
+	<button>Click me!!</button>
+
+	<script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+
+		$('button').on('click', function () {
+
+			$.ajax({
+				url: 'customers.json'
+			})
+			.done(function( data ) {
+
+				$.each (data , function ( idCustomer, customerInfo) {
+
+					var name = customerInfo.firstName;
+					var city = customerInfo.address.city;
+
+					$("div").append("<p>Hello " + name + " from " + city + "</p>");
+
+				})
+
+			})
+
+		});
+
+	</script>
+</body>
+</html>
